@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color:white;
+        }
+
+        .box {
+            position: relative;
+            padding: 30px 50px;
+            width: 450px;
+            height: 550px;
+            background-color: #2f363e;
+            border-radius: 30px;
+            box-shadow: 2px 2px 5px 5px orange;
+        }
+
+        h2 {
+            width: 100%;
+            font-weight: 600;
+            text-align: center;
+            color: white;
+            font-size: 1.75rem;
+            margin-top: 20px;
+        }
+
+        #inputBx {
+            position: relative;
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 15px 20px;
+            border-radius: 30px;
+            box-shadow: 2px 5px palevioletred;
+            font-size: 1rem;
+        }
+
+        .box li {
+            position: relative;
+            width: calc(100% - 40px);
+            display: flex;
+            align-items: center;
+            background-color: #1f83f2;
+            margin: 15px 0;
+            padding: 10px 10px 10px 45px;
+            min-height: 45px;
+            cursor: pointer;
+            border-radius: 2.25px;
+            color: blue;
+            box-shadow: 2px 5px palegreen;
+        }
+
+        .box li i {
+            position: absolute;
+            width: 30px;
+            right: -40px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #009090;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .box li i::before,
+        .box li i::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 2px;
+            background-color: #FFF;
+        }
+
+        .box li i::before {
+            transform: rotate(45deg);
+        }
+
+        .box li i::after {
+            transform: rotate(-45deg);
+        }
+
+        .box li.done {
+            background-color: crimson;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <h2>To Do List</h2>
+            <input type="text" placeholder="Enter the task" id="inputBx">
+            <ul id="lists"></ul>
+        </div>
+    </div>
+    <script>
+        let inputBx = document.querySelector('#inputBx');
+        let lists = document.querySelector('#lists');
+
+        inputBx.addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                addItem(this.value);
+                this.value = "";
+            }
+        });
+
+        let addItem = (task) => {
+            let listItem = document.createElement("li");
+            listItem.textContent = task;
+            let deleteIcon = document.createElement("i");
+            deleteIcon.addEventListener("click", function () {
+                this.parentElement.remove();
+            });
+            listItem.appendChild(deleteIcon);
+            listItem.addEventListener("click", function () {
+                this.classList.toggle('done');
+            });
+            lists.appendChild(listItem);
+        };
+    </script>
+</body>
+
+</html>
